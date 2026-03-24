@@ -5,11 +5,12 @@
   "name": "ItemFlow",
   "description": "Tracks container changes on your minecraft server",
   "authors": [
-    "DeltaPv"
+    "BrickedBrick"
   ],
   "contact": {
-    "homepage": "https://github.com/DeltaPv",
-    "sources": "https://github.com/DeltaPv/itemflow"
+    "homepage": "https://github.com/BrickedBrickk",
+    "sources": "https://github.com/BrickedBrickk/itemflow",
+    "issues": "https://github.com/BrickedBrickk/itemflow/issues"
   },
   "license": "MIT",
   "icon": "assets/itemflow/icon.png",
@@ -17,17 +18,14 @@
   "entrypoints": {
     "main": [
       "com.itemflow.ItemFlow"
-    ],
-    "client": [
-      ""
     ]
   },
   "mixins": [
     "itemflow.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=0.16.14",
-    "minecraft": "~1.21.8",
+    "fabricloader": ">=0.18.2",
+    "minecraft": "~1.21.11",
     "java": ">=21",
     "fabric-api": "*"
   }

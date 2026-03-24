@@ -3,11 +3,11 @@ plugins {
 	id 'maven-publish'
 }
 
-version = '1.0.1'
-group = 'com.itemflow'
+version = project.mod_version
+group = project.maven_group
 
 base {
-	archivesName = 'itemflow'
+	archivesName = project.archives_base_name
 }
 
 repositories {
@@ -22,7 +22,7 @@ loom {
 	splitEnvironmentSourceSets()
 
 	mods {
-		"modid" {
+		"itemflow" {
 			sourceSet sourceSets.main
 			sourceSet sourceSets.client
 		}

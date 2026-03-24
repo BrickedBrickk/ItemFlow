@@ -1,39 +1,28 @@
-# gradle
-
+# Gradle / Fabric build output
 .gradle/
-/build/
+build/
+**/build/
+run/
 out/
 classes/
 
-# eclipse
-
-*.launch
-
-# idea
-
+# IDE/editor files
+.vscode/
 .idea/
+.settings/
 *.iml
 *.ipr
 *.iws
-
-# vscode
-
-.settings/
-.vscode/
-bin/
+*.launch
 .classpath
 .project
+bin/
 
-# macos
+# OS junk
+.DS_Store
+Thumbs.db
 
-*.DS_Store
-
-# fabric
-
-run/
-
-# java
-
+# JVM crash/profiling files
 hs_err_*.log
 replay_*.log
 *.hprof

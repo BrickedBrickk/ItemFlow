@@ -1,17 +1,14 @@
 package com.itemflow.Utils;
 
 import com.itemflow.ItemFlow;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.ChestBlock;
-import net.minecraft.block.entity.*;
-import net.minecraft.block.enums.ChestType;
-import net.minecraft.item.ItemStack;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
-import net.minecraft.world.dimension.DimensionType;
-import net.minecraft.world.dimension.DimensionTypes;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.ChestBlock;
+import net.minecraft.world.level.block.entity.*;
+import net.minecraft.world.level.block.state.properties.ChestType;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.level.Level;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -27,48 +24,48 @@ public class Utils
         return String.format("[%s]", dtf.format(LocalDateTime.now()));
     }
 
-    public static String getDimString(RegistryEntry<DimensionType> dimensionTypeRegistryEntry)
+    public static String getDimString(ResourceKey<Level> dimension)
     {
         String dimStr = "unkown";
-        if(dimensionTypeRegistryEntry.matchesKey(DimensionTypes.OVERWORLD))
+        if(dimension.equals(Level.OVERWORLD))
             dimStr = "Overworld";
-        else if(dimensionTypeRegistryEntry.matchesKey(DimensionTypes.THE_NETHER))
+        else if(dimension.equals(Level.NETHER))
             dimStr = "The Nether";
-        else if(dimensionTypeRegistryEntry.matchesKey(DimensionTypes.THE_END))
+        else if(dimension.equals(Level.END))
             dimStr = "The End";
         return dimStr;
     }
 
-    public static ChestBlockEntity getSecondChest(BlockState blockState, BlockEntity blockEntity, World world)
+    public static ChestBlockEntity getSecondChest(BlockState blockState, BlockEntity blockEntity, Level world)
     {
         if (!(blockEntity instanceof ChestBlockEntity)) return null;
-        Direction facingDirection = blockState.get(Properties.HORIZONTAL_FACING);
+        Direction facingDirection = blockState.getValue(ChestBlock.FACING);
 
-        ChestType chestType = blockState.get(ChestBlock.CHEST_TYPE);
+        ChestType chestType = blockState.getValue(ChestBlock.TYPE);
         switch (chestType)
         {
             case LEFT:
-                if (facingDirection == Direction.EAST) return (ChestBlockEntity) world.getBlockEntity(blockEntity.getPos().south());
-                else if (facingDirection == Direction.SOUTH) return (ChestBlockEntity) world.getBlockEntity(blockEntity.getPos().west());
-                else if (facingDirection == Direction.WEST) return (ChestBlockEntity) world.getBlockEntity(blockEntity.getPos().north());
-                else return (ChestBlockEntity) world.getBlockEntity(blockEntity.getPos().east());
+                if (facingDirection == Direction.EAST) return (ChestBlockEntity) world.getBlockEntity(blockEntity.getBlockPos().south());
+                else if (facingDirection == Direction.SOUTH) return (ChestBlockEntity) world.getBlockEntity(blockEntity.getBlockPos().west());
+                else if (facingDirection == Direction.WEST) return (ChestBlockEntity) world.getBlockEntity(blockEntity.getBlockPos().north());
+                else return (ChestBlockEntity) world.getBlockEntity(blockEntity.getBlockPos().east());
             case RIGHT:
-                if (facingDirection == Direction.EAST) return (ChestBlockEntity) world.getBlockEntity(blockEntity.getPos().north());
-                else if (facingDirection == Direction.SOUTH) return (ChestBlockEntity) world.getBlockEntity(blockEntity.getPos().east());
-                else if (facingDirection == Direction.WEST) return (ChestBlockEntity) world.getBlockEntity(blockEntity.getPos().south());
-                else return (ChestBlockEntity) world.getBlockEntity(blockEntity.getPos().west());
+                if (facingDirection == Direction.EAST) return (ChestBlockEntity) world.getBlockEntity(blockEntity.getBlockPos().north());
+                else if (facingDirection == Direction.SOUTH) return (ChestBlockEntity) world.getBlockEntity(blockEntity.getBlockPos().east());
+                else if (facingDirection == Direction.WEST) return (ChestBlockEntity) world.getBlockEntity(blockEntity.getBlockPos().south());
+                else return (ChestBlockEntity) world.getBlockEntity(blockEntity.getBlockPos().west());
             default:
                 return null;
         }
     }
 
-    public static List<ItemStack> getItems(LootableContainerBlockEntity blockEntity)
+    public static List<ItemStack> getItems(RandomizableContainerBlockEntity blockEntity)
     {
         List<ItemStack> itemStacks = new ArrayList<>();
 
-        for(int i = 0; i < blockEntity.size(); i++)
+        for(int i = 0; i < blockEntity.getContainerSize(); i++)
         {
-            ItemStack itemStack = blockEntity.getStack(i);
+            ItemStack itemStack = blockEntity.getItem(i);
             if(!itemStack.isEmpty())
             {
                 itemStacks.add(itemStack);

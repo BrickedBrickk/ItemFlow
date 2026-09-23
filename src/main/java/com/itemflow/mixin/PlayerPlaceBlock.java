@@ -2,9 +2,9 @@ package com.itemflow.mixin;
 
 import com.itemflow.ItemFlow;
 import com.itemflow.Utils.BlockPlaceCallback;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.util.ActionResult;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.InteractionResult;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -13,8 +13,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(BlockItem.class)
 public class PlayerPlaceBlock
 {
-    @Inject(method = "place(Lnet/minecraft/item/ItemPlacementContext;)Lnet/minecraft/util/ActionResult;", at = @At("TAIL"), cancellable = true)
-    private void onPlace(ItemPlacementContext context, CallbackInfoReturnable<ActionResult> cir)
+    @Inject(method = "place(Lnet/minecraft/world/item/context/BlockPlaceContext;)Lnet/minecraft/world/InteractionResult;", at = @At("TAIL"), cancellable = true)
+    private void onPlace(BlockPlaceContext context, CallbackInfoReturnable<InteractionResult> cir)
     {
         BlockPlaceCallback.EVENT.invoker().invoke(context);
     }

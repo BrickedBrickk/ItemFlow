@@ -2,12 +2,12 @@ package com.itemflow.Utils;
 
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
-import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.world.item.context.BlockPlaceContext;
 
 @FunctionalInterface
 public interface BlockPlaceCallback
 {
-    void invoke(ItemPlacementContext context);
+    void invoke(BlockPlaceContext context);
 
     Event<BlockPlaceCallback> EVENT = EventFactory.createArrayBacked(BlockPlaceCallback.class,
             (listeners) -> (context) ->
